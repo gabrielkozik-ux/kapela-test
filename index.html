@@ -167,9 +167,9 @@
             <h1 class="font-game text-4xl md:text-6xl lg:text-8xl glitch" data-text="SUNDAY CHESS.">SUNDAY CHESS.</h1>
             <p class="font-mono text-lg md:text-2xl mt-4 md:mt-8 tracking-wider">SOUNDTRACK PRO TVŮJ VEDLEJŠÍ QUEST.</p>
             <p class="text-md md:text-xl mt-4 text-gray-400">Hudba pro ty, co hrajou život na hard mode.</p>
-            <a href="#" class="font-game inline-block mt-12 px-8 py-4 bg-cyan-400 text-black border-2 border-cyan-400 rounded-none hover:bg-transparent hover:text-cyan-400 transition-all duration-300 pulse">
+            <button id="play-button" class="font-game inline-block mt-12 px-8 py-4 bg-cyan-400 text-black border-2 border-cyan-400 rounded-none hover:bg-transparent hover:text-cyan-400 transition-all duration-300 pulse">
                 [ ZMÁČKNI PLAY, ZMĚŇ PRAVIDLA ]
-            </a>
+            </button>
         </div>
     </header>
 
@@ -308,6 +308,8 @@
         </div>
     </footer>
 
+    <audio id="band-audio" src="hadi-tanec.mp3"></audio>
+
     <script>
         // JavaScript pro fade-in animace při scrollu
         document.addEventListener('DOMContentLoaded', () => {
@@ -336,7 +338,28 @@
                     });
                 });
             });
+
+            // Music player logic
+            const playButton = document.getElementById('play-button');
+            const audio = document.getElementById('band-audio');
+            const buttonTextDefault = '[ ZMÁČKNI PLAY, ZMĚŇ PRAVIDLA ]';
+            const buttonTextPlaying = '[ PAUSE ]';
+
+            playButton.addEventListener('click', () => {
+                if (audio.paused) {
+                    audio.play();
+                    playButton.textContent = buttonTextPlaying;
+                } else {
+                    audio.pause();
+                    playButton.textContent = buttonTextDefault;
+                }
+            });
+
+            audio.addEventListener('ended', () => {
+                playButton.textContent = buttonTextDefault;
+            });
         });
     </script>
 </body>
 </html>
+
